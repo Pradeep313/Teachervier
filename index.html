@@ -1,238 +1,41 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Time Tablet</title>
-    <link rel="stylesheet" href="styles.css"> <!-- External CSS -->
-    <style>
-        @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700");
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            --h: 212deg;
-            --l: 43%;
-            --brandColor: hsl(var(--h), 71%, var(--l));
-            font-family: Montserrat, sans-serif;
-            margin: 0;
-            background-color: whitesmoke;
-            position: absolute;
-        }
-
-        p {
-            margin: 0;
-            line-height: 1.6;
-        }
-
-        ol {
-            list-style: none;
-            counter-reset: list;
-            padding: 0 1rem;
-        }
-
-        li {
-            --stop: calc(100% / var(--length) * var(--i));
-            --l: 62%;
-            --l2: 88%;
-            --h: calc((var(--i) - 1) * (180 / var(--length)));
-            --c1: hsl(var(--h), 71%, var(--l));
-            --c2: hsl(var(--h), 71%, var(--l2));
-
-            position: relative;
-            counter-increment: list;
-            width: 50vw;
-            left: 25vw;
-            text-align: center;
-
-            height: auto;
-            margin: 2rem auto;
-            padding: 2rem 1rem 1rem;
-            box-shadow: 0.1rem 0.1rem 1.5rem rgba(0, 0, 0, 0.3);
-            border-radius: 0.25rem;
-            overflow: hidden;
-            background-color: white;
-        }
-
-        li::before {
-            content: '';
-            display: block;
-            width: 100%;
-            height: 1rem;
-            position: absolute;
-            top: 0;
-            left: 0;
-            background: linear-gradient(to right, var(--c1) var(--stop), var(--c2) var(--stop));
-        }
-
-        h3 {
-            display: flex;
-            align-items: baseline;
-            margin: 0 0 1rem;
-            color: rgb(70 70 70);
-        }
-
-        h3::before {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex: 0 0 auto;
-            margin-right: 1rem;
-            width: 3rem;
-            height: 3rem;
-            content: counter(list);
-            padding: 1rem;
-            border-radius: 50%;
-            background-color: var(--c1);
-            color: white;
-        }
-
-        .loader {
-
-            position: relative;
-            top: 35vh;
-            left: 35vw;
-
-            height: 200px;
-            width: 200px;
-
-            aspect-ratio: 1;
-            border-radius: 50%;
-            background:
-                radial-gradient(farthest-side, #ffa516 94%, #0000) top/8px 8px no-repeat,
-                conic-gradient(#0000 30%, #ffa516);
-            -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
-            animation: l13 1s infinite linear;
-        }
-
-
-
-
-
-        .noob {
-
-            width: 100%;
-
-            height: 50%;
-            background-color: grey;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-        }
-
-        .ids {
-
-
-            width: 100%;
-
-
-            text-align: center;
-            background-color: grey;
-            color: black;
-            justify-content: center;
-            align-items: center;
-        }
-
-        table {
-            border: 2px solid black;
-
-
-
-
-
-        }
-
-        th,
-        td {
-            border: 1px solid #000000;
-            padding: 10px;
-
-            text-align: left;
-            text-align: center;
-
-        }
-
-
-
-        @media all and (width <768px) {
-            li {
-                margin: 3rem auto;
-                padding: 3rem 2rem 2rem;
-
-                text-align: center;
-                width: 100vw;
-                left: 0;
-            }
-
-            h3 {
-                font-size: 2.25rem;
-                margin: 0 0 2rem;
-            }
-
-            h3::before {
-                margin-right: 1.5rem;
-            }
-
-
-            .table {
-                border: 2px solid black;
-                position: relative;
-                rotate: 90deg;
-                width: 50vh;
-                height: 50vw;
-                top: 50vw;
-
-
-
-            }
-
-            th,
-            td {
-                border: 1px solid #000000;
-
-
-                text-align: center;
-
-
-            }
-
-        }
-
-
-        @keyframes l13 {
-            100% {
-                transform: rotate(1turn)
-            }
-        }
-    </style>
-
-
+    <title>TEACHER</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <ol style="--length: 5;display:block" role="list" id="teacher_data" class="list_d_1"></ol>
-    <form class="noob" style="display: none;">
-        <select id="view" onchange="views() " class="ids">
+    <p id="hellos"></p>
+    <div class="container" style="display:block;">
+        <h1>TEACHER LIST</h1>
+        <input type="text" id="searchBar" placeholder="Search " onkeyup="searchFunction()">
+        <ul id="peopleList" class="list_d_1">
+        </ul>
+    </div>
+    <div class="alerts" style="display:none;" id="alert">
+
+        <button id="showAlert" onclick="location.reload();">Not Found</button>
+
+    </div>
+    <div class="loader " style="display: none;"></div>
+    <div class="containers" style="display: none;">
+        <label for="options">Choose an option:</label>
+        <select id="options" onchange="views()" class="ids">
 
         </select>
-    </form>
-    <div class="loader " style="display: none;"></div>
+
+
+    </div>
+
 
     <div class="table-view pro" style="display: none;">
-        <br>
-        <br>
-        <br>
-        <br>
-        <!-- <div id="name_time"> </div> -->
 
-        <table class="table ">
+
+        <table class="table">
 
             <tr>
                 <th>DAY</th>
@@ -312,226 +115,7 @@
         </table>
     </div>
 
-    <script>
-
-        function hellos() {
-            console.log("hi");
-        };
-        let SHEET_IDB = "1o2-dh2Shhj9wECj7sU57FJwXuiuvcI7V-eKpHyFdIxw";
-        let SHEET_TITLE = "Sheet1";
-        let SHEET_RANGEB = "B3:B10000";
-
-        let FULL_URL_blogger =
-            "https://docs.google.com/spreadsheets/d/" +
-            SHEET_IDB +
-            "/gviz/tq?sheet=" +
-            SHEET_TITLE +
-            "&range=" +
-            SHEET_RANGEB;
-
-        fetch(FULL_URL_blogger)
-            .then((res) => res.text())
-            .then((rep) => {
-                let datas = JSON.parse(rep.substr(47).slice(0, -2));
-
-                let blogger_name = document.getElementById("view");
-                let teacher_data = document.getElementById("teacher_data");
-                let length = datas.table.rows.length;
-                console.log(length);
-
-                let i = 1;
-                let data_list = [];
-                for (i = 1; i < length + 1; i++) {
-                    //let NewBoxBlogger = document.createElement("div");
-                    //let space = document.createElement("br");
-                    //NewBoxBlogger.id = "box" + i;
-                    //NewBoxBlogger.className = "box-blogger";
-                    //blogger_name.append(NewBoxBlogger);
-                    //console.log(datas.table.rows[i - 1].c[0].v);
-
-                    data_list.push(datas.table.rows[i - 1].c[0].v);
-
-                    // final_dta_data="<option value="+ i+">"+datas.table.rows[i - 1].c[0].v+"</option>" +"<br>"+final_dta_data ;
-                    //console.log(final_dta_data);
-
-                    //let final_dta_d1= final_dta_d1+"<br>"+ final_dta_data;
-
-
-                    //blogger_name.innerHTML =
-                    //  "<div class=" + "news_blog" + " > <span class=" + "hedingnews" + ">" + data.table.rows[i - 1].c[0].v + "</span> <span class=" + "arrownews" + ">" + data.table.rows[i - 1].c[1].v + "</span> <br>";
-                    //    "<option value="+i+">"+datas.table.rows[i - 1].c[0].v+"</option>";
-                    if (
-                        datas.table.rows[i - 1].c[0].v == " "
-                    ) {
-
-                        break;
-                    }
-                };
-                //console.log(data_list);
-                function remove_items(arr) {
-                    let item_each_data = {};
-
-                    arr.forEach(function (i) {
-                        if (!item_each_data[i]) {
-                            item_each_data[i] = true;
-                        }
-                    });
-                    return Object.keys(item_each_data);
-
-
-                }
-                let duplicate_elements = [];
-                duplicate_elements = remove_items(data_list);
-                console.log(duplicate_elements);
-                console.log(duplicate_elements.length);
-                let final_dta_data = "";
-                let te_dta_d = "";
-                length_d = duplicate_elements.length
-
-                for (let i = 0; i < duplicate_elements.length; i++) {
-                    length = length - 1;
-
-                    final_dta_data = "<option value=" + i + ">" + duplicate_elements[duplicate_elements.length - i - 1] + "</option>" + final_dta_data;
-                    te_dta_d = "<li style=" + '"--i:' + length + '" onclick="viwer(this)' + '"' + '><h3>' + duplicate_elements[duplicate_elements.length - i - 1] + "</h3></li>" + te_dta_d
-
-                };
-
-                teacher_data.innerHTML = te_dta_d;
-                console.log(te_dta_d);
-
-
-                blogger_name.innerHTML = '<option value="' + i + 1 + '" selected="selected">Select Teacher Name</option>' + final_dta_data;
-
-                console.log(final_dta_data);
-
-            });
-
-
-        function viwer(e) {
-            //var noobs = document.getElementsByClassName("noob");
-            var pros = document.getElementsByClassName("pro");
-            var teacherdatas = document.getElementsByClassName("list_d_1");
-            document.querySelector(".loader").style.display = "block";
-            document.querySelector(".list_d_1").style.display = "none";
-
-
-
-
-
-
-
-            console.log(e.innerText);
-            text_data = e.innerText;
-            //noobs.style.display="block";
-            showview(text_data);
-
-
-
-
-
-
-
-        };
-
-
-        function views() {
-            var sheetidn = document.getElementById("view");
-            var value = sheetidn.value;
-
-
-            var sheetidn1 = sheetidn.options[sheetidn.selectedIndex].text;
-            console.log(sheetidn1);
-            showview(sheetidn1);
-
-
-
-
-
-        };
-
-        function showview(sheetidn1) {
-
-            let SHEET_IDN = "1PiE7LH9HY3Q8GFseLHjEYVw6zWlr7wbhMgQj-bTv82w";
-            //let SHEET_TITLEE = "B.tech4";
-            let SHEET_RANGEN = "A1:I6";
-            let FULL_URL_news =
-                //"https://docs.google.com/spreadsheets/d/1JvLXp8yS5rUviW4gEKfmExyki4fmIfIDHQEqZr_161E/gviz/tq?sheet=B.tech4&range=A1:I6";
-                // https://docs.google.com/spreadsheets/d/1nnD_JIr2XGb1oVrzOe0YFRQvW-C36kNJxI0DEXFpjEg/gviz/tq?sheet=A2:B10000
-                "https://docs.google.com/spreadsheets/d/" +
-                SHEET_IDN +
-                "/gviz/tq?sheet=" +
-                sheetidn1 +
-                "&range=" +
-                SHEET_RANGEN;
-
-            fetch(FULL_URL_news)
-                .then((res) => res.text())
-                .then((rep) => {
-                    let data_news = JSON.parse(rep.substr(47).slice(0, -2));
-
-                    //console.log(data_news);
-                    let length_news = data_news.table.rows.length;
-                    console.log(length_news);
-                    if (length_news == 2) {
-                        alert(" not found in list");
-                        window.location.href="https://pradeep313.github.io/Teachervier/"
-                        // document.querySelector(".loader").style.display = "none";
-
-                        // document.querySelector(".noob").style.display = "none";
-                        // document.querySelector(".pro").style.display = "none";
-                        // document.querySelector(".list_d_1").style.display = "block";
-
-
-
-
-                    }
-                    //console.log(length_news);
-                    //console.log(data_news.table.rows[1].c[1].v);
-
-                    for (let row = 0; row < data_news.table.rows.length; row++) {
-                        for (let col = 0; col <= 8; col++) {
-                            let cellId = `box${row}${col}`;
-                            let cellElement = document.getElementById(cellId);
-                            if (cellElement) {
-                                cellElement.innerHTML = data_news.table.rows[row].c[col].v;
-                            }
-                        }
-                    }
-
-
-
-
-
-                if (length_news != 2) {
-                        setTimeout(display_view, 3000);
-                }
-        
-
-
-
-
-                });
-
-
-
-
-
-           
-
-
-
-        }
-        ;
-
-        function display_view() {
-            document.querySelector(".loader").style.display = "none";
-
-            document.querySelector(".noob").style.display = "block";
-            document.querySelector(".pro").style.display = "block";
-        }
-
-
-
+    <script src="script.js">
 
     </script>
 </body>
